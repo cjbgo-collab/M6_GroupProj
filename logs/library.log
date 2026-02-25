@@ -1,0 +1,327 @@
+2026-02-24 19:17:51.210 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: libraryPU]
+2026-02-24 19:17:51.248 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-24 19:17:51.280 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-24 19:17:51.446 [WARN] org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-24 19:17:51.450 [INFO] org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-24 19:17:51.450 [INFO] org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/library_management]
+2026-02-24 19:17:51.450 [INFO] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-24 19:17:51.450 [INFO] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-24 19:17:51.453 [INFO] org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-24 19:17:51.579 [WARN] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24 19:17:52.515 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24 19:17:52.533 [INFO] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6661d8c0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2026-02-24 19:17:52.609 [DEBUG] org.hibernate.SQL - 
+    create table books (
+        bookId integer not null,
+        bookAuthor varchar(255),
+        bookTitle varchar(255) not null,
+        isAvailable boolean not null,
+        primary key (bookId)
+    )
+2026-02-24 19:17:52.637 [DEBUG] org.hibernate.SQL - 
+    create table loans (
+        loanId serial not null,
+        borrowerName varchar(255),
+        loanBookId integer,
+        loanBookTitle varchar(255),
+        primary key (loanId)
+    )
+2026-02-24 19:17:52.676 [DEBUG] org.hibernate.SQL - 
+    create table users (
+        userId serial not null,
+        userName varchar(255) not null,
+        primary key (userId)
+    )
+2026-02-24 19:17:52.704 [DEBUG] org.hibernate.SQL - 
+    alter table if exists users 
+       drop constraint if exists UK_mmns67o5v4bfippoqitu4v3t6
+2026-02-24 19:17:52.727 [WARN] org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-02-24 19:17:52.727 [WARN] org.hibernate.engine.jdbc.spi.SqlExceptionHelper - constraint "uk_mmns67o5v4bfippoqitu4v3t6" of relation "users" does not exist, skipping
+2026-02-24 19:17:52.728 [DEBUG] org.hibernate.SQL - 
+    alter table if exists users 
+       add constraint UK_mmns67o5v4bfippoqitu4v3t6 unique (userName)
+2026-02-24 19:17:58.037 [DEBUG] org.hibernate.SQL - 
+    select
+        u1_0.userId,
+        u1_0.userName 
+    from
+        users u1_0 
+    where
+        u1_0.userName=?
+2026-02-24 19:17:58.057 [DEBUG] org.hibernate.SQL - 
+    insert 
+    into
+        users
+        (userName) 
+    values
+        (?)
+2026-02-24 19:17:58.078 [INFO] m6.project.service.UserService - New user created: cj go
+2026-02-24 19:18:01.635 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:18:01.638 [INFO] m6.project.service.BookService - No books found in the library.
+2026-02-24 19:18:03.944 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0 
+    where
+        b1_0.isAvailable=true
+2026-02-24 19:18:03.947 [INFO] m6.project.service.BookService - No available books.
+2026-02-24 19:18:05.388 [DEBUG] org.hibernate.SQL - 
+    select
+        l1_0.loanId,
+        l1_0.borrowerName,
+        l1_0.loanBookId,
+        l1_0.loanBookTitle 
+    from
+        loans l1_0
+2026-02-24 19:18:05.391 [INFO] m6.project.service.LoanService - No borrowed books found.
+2026-02-24 19:18:07.504 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0 
+    where
+        b1_0.isAvailable=true
+2026-02-24 19:18:07.506 [INFO] m6.project.service.BookService - No available books.
+2026-02-24 19:18:07.507 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0 
+    where
+        b1_0.isAvailable=true
+2026-02-24 19:18:07.508 [INFO] m6.project.LibraryApplication - No available books to borrow.
+2026-02-24 19:18:09.061 [DEBUG] org.hibernate.SQL - 
+    select
+        l1_0.loanId,
+        l1_0.borrowerName,
+        l1_0.loanBookId,
+        l1_0.loanBookTitle 
+    from
+        loans l1_0
+2026-02-24 19:18:09.063 [INFO] m6.project.service.LoanService - No borrowed books found.
+2026-02-24 19:18:09.064 [DEBUG] org.hibernate.SQL - 
+    select
+        l1_0.loanId,
+        l1_0.borrowerName,
+        l1_0.loanBookId,
+        l1_0.loanBookTitle 
+    from
+        loans l1_0
+2026-02-24 19:18:09.065 [INFO] m6.project.LibraryApplication - No borrowed books to return.
+2026-02-24 19:18:11.718 [INFO] m6.project.service.BookService - Enter ID: 
+2026-02-24 19:18:17.355 [INFO] m6.project.service.BookService - Enter Title: 
+2026-02-24 19:18:19.478 [INFO] m6.project.service.BookService - Enter Author: 
+2026-02-24 19:18:20.604 [DEBUG] org.hibernate.SQL - 
+    insert 
+    into
+        books
+        (bookAuthor, bookTitle, isAvailable, bookId) 
+    values
+        (?, ?, ?, ?)
+2026-02-24 19:18:20.610 [INFO] m6.project.service.BookService - Added a book: jsfndjfn
+2026-02-24 19:18:25.102 [INFO] m6.project.service.BookService - Enter ID: 
+2026-02-24 19:18:26.026 [INFO] m6.project.service.BookService - Enter Title: 
+2026-02-24 19:18:27.138 [INFO] m6.project.service.BookService - Enter Author: 
+2026-02-24 19:18:28.070 [DEBUG] org.hibernate.SQL - 
+    insert 
+    into
+        books
+        (bookAuthor, bookTitle, isAvailable, bookId) 
+    values
+        (?, ?, ?, ?)
+2026-02-24 19:18:28.073 [INFO] m6.project.service.BookService - Added a book: sdfnskdjfn
+2026-02-24 19:18:30.071 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0 
+    where
+        b1_0.isAvailable=true
+2026-02-24 19:18:30.077 [INFO] m6.project.service.BookService - ID | Title | Author | Availability
+2026-02-24 19:18:30.077 [INFO] m6.project.service.BookService - 1 | jsfndjfn | sfsdf | true
+2026-02-24 19:18:30.077 [INFO] m6.project.service.BookService - 2 | sdfnskdjfn | sdfsdfsdfs | true
+2026-02-24 19:18:30.078 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0 
+    where
+        b1_0.isAvailable=true
+2026-02-24 19:18:30.079 [INFO] m6.project.service.LoanService - Enter Book ID to borrow: 
+2026-02-24 19:18:37.627 [DEBUG] org.hibernate.SQL - 
+    update
+        books 
+    set
+        bookAuthor=?,
+        bookTitle=?,
+        isAvailable=? 
+    where
+        bookId=?
+2026-02-24 19:18:37.634 [DEBUG] org.hibernate.SQL - 
+    insert 
+    into
+        loans
+        (borrowerName, loanBookId, loanBookTitle) 
+    values
+        (?, ?, ?)
+2026-02-24 19:18:37.636 [INFO] m6.project.service.LoanService - Borrowed book. Title: jsfndjfn | Borrower: cj go | Book ID: 1
+2026-02-24 19:18:40.408 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:18:40.410 [INFO] m6.project.service.BookService - ID | Title | Author | Availability
+2026-02-24 19:18:40.410 [INFO] m6.project.service.BookService - 2 | sdfnskdjfn | sdfsdfsdfs | true
+2026-02-24 19:18:40.410 [INFO] m6.project.service.BookService - 1 | jsfndjfn | sfsdf | false
+2026-02-24 19:18:40.411 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:18:40.412 [INFO] m6.project.service.BookService - Enter ID to update: 
+2026-02-24 19:18:43.478 [WARN] m6.project.service.BookService - Cannot update: Book is currently borrowed.
+2026-02-24 19:18:49.255 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:18:49.257 [INFO] m6.project.service.BookService - ID | Title | Author | Availability
+2026-02-24 19:18:49.257 [INFO] m6.project.service.BookService - 2 | sdfnskdjfn | sdfsdfsdfs | true
+2026-02-24 19:18:49.257 [INFO] m6.project.service.BookService - 1 | jsfndjfn | sfsdf | false
+2026-02-24 19:18:49.258 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:18:49.260 [INFO] m6.project.service.BookService - Enter ID to remove: 
+2026-02-24 19:18:54.125 [DEBUG] org.hibernate.SQL - 
+    select
+        l1_0.loanId,
+        l1_0.borrowerName,
+        l1_0.loanBookId,
+        l1_0.loanBookTitle 
+    from
+        loans l1_0
+2026-02-24 19:18:54.131 [DEBUG] org.hibernate.SQL - 
+    delete 
+    from
+        loans 
+    where
+        loanId=?
+2026-02-24 19:18:54.134 [INFO] m6.project.service.BookService - Deleted loan record for Book ID 1
+2026-02-24 19:18:54.134 [DEBUG] org.hibernate.SQL - 
+    delete 
+    from
+        books 
+    where
+        bookId=?
+2026-02-24 19:18:54.136 [INFO] m6.project.service.BookService - Removed book. ID: 1
+2026-02-24 19:19:04.058 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:19:04.060 [INFO] m6.project.service.BookService - ID | Title | Author | Availability
+2026-02-24 19:19:04.060 [INFO] m6.project.service.BookService - 2 | sdfnskdjfn | sdfsdfsdfs | true
+2026-02-24 19:19:04.061 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:19:04.062 [INFO] m6.project.service.BookService - Enter ID to update: 
+2026-02-24 19:19:07.165 [INFO] m6.project.service.BookService - Enter new Title (leave blank to keep): 
+2026-02-24 19:19:11.612 [INFO] m6.project.service.BookService - Enter new Author (leave blank to keep): 
+2026-02-24 19:19:12.865 [DEBUG] org.hibernate.SQL - 
+    update
+        books 
+    set
+        bookAuthor=?,
+        bookTitle=?,
+        isAvailable=? 
+    where
+        bookId=?
+2026-02-24 19:19:12.868 [INFO] m6.project.service.BookService - Updated book. ID: 2 Title: dfsjbsjkfbdsjk
+2026-02-24 19:19:14.233 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0
+2026-02-24 19:19:14.235 [INFO] m6.project.service.BookService - ID | Title | Author | Availability
+2026-02-24 19:19:14.236 [INFO] m6.project.service.BookService - 2 | dfsjbsjkfbdsjk | slfjdslkfnskldfn | true
+2026-02-24 19:19:15.457 [DEBUG] org.hibernate.SQL - 
+    select
+        b1_0.bookId,
+        b1_0.bookAuthor,
+        b1_0.bookTitle,
+        b1_0.isAvailable 
+    from
+        books b1_0 
+    where
+        b1_0.isAvailable=true
+2026-02-24 19:19:15.459 [INFO] m6.project.service.BookService - ID | Title | Author | Availability
+2026-02-24 19:19:15.459 [INFO] m6.project.service.BookService - 2 | dfsjbsjkfbdsjk | slfjdslkfnskldfn | true
+2026-02-24 19:19:16.692 [DEBUG] org.hibernate.SQL - 
+    select
+        l1_0.loanId,
+        l1_0.borrowerName,
+        l1_0.loanBookId,
+        l1_0.loanBookTitle 
+    from
+        loans l1_0
+2026-02-24 19:19:16.694 [INFO] m6.project.service.LoanService - No borrowed books found.
+2026-02-24 19:19:21.944 [INFO] m6.project.LibraryApplication - Program terminated.
+2026-02-24 19:20:57.453 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: libraryPU]
+2026-02-24 19:20:57.490 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-24 19:20:57.516 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-02-24 19:20:57.661 [WARN] org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+2026-02-24 19:20:57.664 [INFO] org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+2026-02-24 19:20:57.665 [INFO] org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/library_management]
+2026-02-24 19:20:57.665 [INFO] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=****, user=postgres}
+2026-02-24 19:20:57.665 [INFO] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+2026-02-24 19:20:57.668 [INFO] org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+2026-02-24 19:20:57.788 [WARN] org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-24 19:20:57.915 [INFO] org.hibernate.orm.connections.pooling - HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/library_management]

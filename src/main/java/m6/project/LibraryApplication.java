@@ -17,7 +17,7 @@ public class LibraryApplication {
     private boolean running = true;
     private User user;
 
-    private static Logger logger = LoggerFactory.getLogger(LibraryApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(LibraryApplication.class);
 
     public LibraryApplication(BookService bookService, LoanService loanService, UserService userService) {
         this.bookService = bookService;
@@ -26,7 +26,7 @@ public class LibraryApplication {
     }
 
     public void start() {
-        System.out.print("Name: ");
+    	System.out.println("Name: ");
         String name = input.nextLine();
         this.user = userService.loginUser(name);
 
@@ -69,7 +69,7 @@ public class LibraryApplication {
                         if (bookService.hasAvailableBooks()) {
                             loanService.borrowBook(input, user);
                         } else {
-                            System.out.println("No available books to borrow.");
+                            logger.info("No available books to borrow.");
                         }
                         break;
                     case 5:
@@ -77,7 +77,7 @@ public class LibraryApplication {
                         if (loanService.hasBorrowedBooks()) {
                             loanService.returnBook(input);
                         } else {
-                            System.out.println("No borrowed books to return.");
+                            logger.info("No borrowed books to return.");
                         }
                         break;
                     case 6:
@@ -88,7 +88,7 @@ public class LibraryApplication {
                         if (bookService.hasAnyBooks()) {
                             bookService.removeBook(input);
                         } else {
-                            System.out.println("No books to remove.");
+                            logger.info("No books to remove.");
                         }
                         break;
                     case 8:
@@ -96,7 +96,7 @@ public class LibraryApplication {
                         if (bookService.hasAnyBooks()) {
                             bookService.updateBook(input);
                         } else {
-                            System.out.println("No books to update.");
+                            logger.info("No books to update.");
                         }
                         break;
                     case 0:
